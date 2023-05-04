@@ -121,7 +121,7 @@ func ParseOptions() *Options {
 	flagSet.CreateGroup("update", "Update",
 		flagSet.CallbackVarP(GetUpdateCallback(), "update", "up", "update subfinder to latest version"),
 		flagSet.BoolVarP(&options.DisableUpdateCheck, "disable-update-check", "duc", false, "disable automatic subfinder update check"),
-	) 
+	)
 
 	createGroup(flagSet, "output", "Output",
 		flagSet.StringVarP(&options.OutputFile, "output", "o", "", "file to write output to"),
@@ -174,7 +174,7 @@ func ParseOptions() *Options {
 	options.Stdin = fileutil.HasStdin()
 
 	// Read the inputs and configure the logging
-	options.configureOutput()
+	options.ConfigureOutput()
 
 	if options.Version {
 		gologger.Info().Msgf("Current Version: %s\n", version)
@@ -202,10 +202,10 @@ func ParseOptions() *Options {
 	// Otherwise load the default provider config
 	if fileutil.FileExists(options.ProviderConfig) {
 		gologger.Info().Msgf("Loading provider config from %s", options.ProviderConfig)
-		options.loadProvidersFrom(options.ProviderConfig)
+		options.LoadProvidersFrom(options.ProviderConfig)
 	} else {
 		gologger.Info().Msgf("Loading provider config from the default location: %s", defaultProviderConfigLocation)
-		options.loadProvidersFrom(defaultProviderConfigLocation)
+		options.LoadProvidersFrom(defaultProviderConfigLocation)
 	}
 	if options.ListSources {
 		listSources(options)
@@ -214,7 +214,7 @@ func ParseOptions() *Options {
 
 	// Validate the options passed by the user and if any
 	// invalid options have been used, exit.
-	err = options.validateOptions()
+	err = options.ValidateOptions()
 	if err != nil {
 		gologger.Fatal().Msgf("Program exiting: %s\n", err)
 	}
@@ -222,8 +222,8 @@ func ParseOptions() *Options {
 	return options
 }
 
-// loadProvidersFrom runs the app with source config
-func (options *Options) loadProvidersFrom(location string) {
+// LoadProvidersFrom runs the app with source config
+func (options *Options) LoadProvidersFrom(location string) {
 	// todo: move elsewhere
 	if len(options.Resolvers) == 0 {
 		options.Resolvers = resolve.DefaultResolvers

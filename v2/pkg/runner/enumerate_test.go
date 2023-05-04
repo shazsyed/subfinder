@@ -15,7 +15,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	options.Output = os.Stdout
 	t.Run("Literal Match", func(t *testing.T) {
 		options.Match = []string{"req.example.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -28,7 +28,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	})
 	t.Run("Multiple Wildcards Match", func(t *testing.T) {
 		options.Match = []string{"*.ns.*.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -44,7 +44,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	})
 	t.Run("Sequential Match", func(t *testing.T) {
 		options.Match = []string{"*.ns.example.com", "*.hackerone.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -60,7 +60,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	})
 	t.Run("Literal Filter", func(t *testing.T) {
 		options.Filter = []string{"req.example.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -73,7 +73,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	})
 	t.Run("Multiple Wildcards Filter", func(t *testing.T) {
 		options.Filter = []string{"*.ns.*.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -89,7 +89,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	})
 	t.Run("Sequential Filter", func(t *testing.T) {
 		options.Filter = []string{"*.ns.example.com", "*.hackerone.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -106,7 +106,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	t.Run("Filter and Match", func(t *testing.T) {
 		options.Filter = []string{"example.com"}
 		options.Match = []string{"hackerone.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
@@ -124,7 +124,7 @@ func TestFilterAndMatchSubdomain(t *testing.T) {
 	t.Run("Filter and Match - Same Root Domain", func(t *testing.T) {
 		options.Filter = []string{"example.com"}
 		options.Match = []string{"www.example.com"}
-		err := options.validateOptions()
+		err := options.ValidateOptions()
 		if err != nil {
 			t.Fatalf("Expected nil got %v while validation\n", err)
 		}
