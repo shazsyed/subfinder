@@ -11,8 +11,8 @@ import (
 	"github.com/projectdiscovery/gologger/levels"
 )
 
-// validateOptions validates the configuration options passed
-func (options *Options) validateOptions() error {
+// ValidateOptions validates the configuration options passed
+func (options *Options) ValidateOptions() error {
 	// Check if domain, list of domains, or stdin info was provided.
 	// If none was provided, then return.
 	if len(options.Domain) == 0 && options.DomainsFile == "" && !options.Stdin {
@@ -63,8 +63,8 @@ func stripRegexString(val string) string {
 	return fmt.Sprint("^", val, "$")
 }
 
-// configureOutput configures the output on the screen
-func (options *Options) configureOutput() {
+// ConfigureOutput configures the output on the screen
+func (options *Options) ConfigureOutput() {
 	// If the user desires verbose output, show verbose output
 	if options.Verbose {
 		gologger.DefaultLogger.SetMaxLevel(levels.LevelVerbose)
